@@ -7,11 +7,9 @@ from PIL import Image
 import io
 import random
 
-# --- [修改点] ---
 # 从配置文件导入账号密码
 import config
 
-# --- 配置区 (已移至 config.py) ---
 
 # 相关的URL
 BASE_URL = "https://jwc.swjtu.edu.cn"
@@ -36,7 +34,6 @@ class SWJTUAssessor:
         self.session.headers.update(HEADERS)
 
     def _get_captcha_and_login(self):
-        # ... 此函数无逻辑变化 ...
         print("正在获取验证碼...")
         try:
             captcha_params = {'test': int(time.time() * 1000)}
@@ -68,7 +65,6 @@ class SWJTUAssessor:
             return False
 
     def _perform_loading_action(self):
-        # ... 此函数无逻辑变化 ...
         print("正在访问加载页面以建立完整会话...")
         try:
             headers = self.session.headers.copy()
@@ -82,7 +78,6 @@ class SWJTUAssessor:
             return False
 
     def get_unevaluated_courses(self):
-        # ... 此函数无逻辑变化 ...
         print("\n正在获取待评价课程列表...")
         try:
             headers = self.session.headers.copy()
@@ -105,7 +100,6 @@ class SWJTUAssessor:
             return []
 
     def _parse_and_build_payload(self, questionnaire_html):
-        # ... 此函数无逻辑变化 ...
         soup = BeautifulSoup(questionnaire_html, 'html.parser')
         title = soup.find('div', class_='post-title')
         if title: print(f" -> 问卷标题: {title.text.strip()}\n" + "-" * 40)
@@ -147,8 +141,6 @@ class SWJTUAssessor:
         payload['percents'] = '_' + '_'.join(percents)
         return payload
 
-    # --- [修改点] ---
-    # 增加了 current_num 和 total_num 参数
     def evaluate_course(self, course_url, current_num, total_num):
         """对单个课程进行评价，并加入防刷延时和进度显示"""
         try:
@@ -199,7 +191,6 @@ class SWJTUAssessor:
         total_courses = len(courses)
         for i, course_link in enumerate(courses, 1):
             print(f"\n[{i}/{total_courses}] 正在处理课程: {course_link}")
-            # --- [修改点] ---
             # 将进度传递给 evaluate_course 函数
             self.evaluate_course(course_link, current_num=i, total_num=total_courses)
             
@@ -211,8 +202,7 @@ class SWJTUAssessor:
 
 if __name__ == "__main__":
     print("--- 西南交大教务处自动评教脚本 ---")
-    
-    # --- [修改点] ---
+
     # 从 config.py 读取配置，如果密码为空则提示输入
     username = config.USERNAME
     password = config.PASSWORD

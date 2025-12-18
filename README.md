@@ -27,9 +27,39 @@ PASSWORD = ""
 
 ## 安装配置
 
-### 方式一：使用 uv（推荐）
 
-[uv](https://github.com/astral-sh/uv) 是一个快速的 Python 包管理工具，推荐使用。
+### 方式一：使用 pip
+
+如果你习惯使用 pip ，可以按以下步骤操作。
+
+1. **创建虚拟环境（推荐，可以省略）**
+
+```bash
+# 创建虚拟环境
+python3 -m venv venv
+
+# 激活虚拟环境
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+```
+
+2. **安装依赖**
+
+```bash
+pip install requests beautifulsoup4 pillow
+```
+
+3. **运行脚本**
+
+```bash
+python auto_access.py
+```
+
+### 方式二：使用 uv
+
+[uv](https://github.com/astral-sh/uv) 是一个快速的 Python 包管理工具。
 
 1. **安装 uv**
 
@@ -57,34 +87,6 @@ uv sync
 uv run ./auto_access.py
 ```
 
-### 方式二：使用 pip
-
-如果你更习惯使用传统的 pip 方式，可以按以下步骤操作。
-
-1. **创建虚拟环境（推荐，可以省略）**
-
-```bash
-# 创建虚拟环境
-python3 -m venv venv
-
-# 激活虚拟环境
-# Windows
-venv\Scripts\activate
-# macOS/Linux
-source venv/bin/activate
-```
-
-2. **安装依赖**
-
-```bash
-pip install requests beautifulsoup4 pillow
-```
-
-3. **运行脚本**
-
-```bash
-python auto_access.py
-```
 
 ## 使用说明
 

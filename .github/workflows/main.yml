@@ -1,0 +1,29 @@
+name: Evaluate Courses
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出代码
+      - uses: actions/checkout@v4
+
+      # 2. 安装 uv 并配置缓存
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+
+      # 3. 同步依赖 (自动安装 .python-version 指定的 Python 版本)
+      - name: Install dependencies
+        run: uv sync
+
+      # 4. 运行代码 (注入环境变量)
+      - name: Run script
+        env:
+          SWJTU_USERNAME: ${{ secrets.SWJTU_USERNAME }}
+          SWJTU_PASSWORD: ${{ secrets.SWJTU_PASSWORD }}
+        run: uv run python actions.py

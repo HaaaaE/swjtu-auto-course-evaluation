@@ -210,7 +210,8 @@ class SWJTUAssessor:
 
         courses = self.get_unevaluated_courses()
         if not courses:
-            raise Exception("没有需要评价的课程")
+            print("没有需要评价的课程")
+            return
         
         print("\n--- 开始自动评教 ---")
         total_courses = len(courses)
